@@ -9,4 +9,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Spring Data repository interface.
     // It would provide methods for CRUD operations on the Product entity.
 
+    // Giao tiếp với database, xử lý truy vấn CRUD Kế thừa từ JpaRepository,
+    // ta sẽ có sẵn các hàm như: findAll(), save(), deleteById(), findById()
+    // Không cần viết SQL, Spring Data JPA lo hết.
 }

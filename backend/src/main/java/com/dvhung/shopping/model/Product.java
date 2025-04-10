@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 
 @Entity
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // represents the product table in MySQL database
+    // When the app runs, Spring Boot will automatically create a product table
+    // based on this class if it does not exist.
+
+    @Id // primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // spring auto-incremented ID
     private Long id; // Product ID
     private String name; // Product name
     private String description; // Product description

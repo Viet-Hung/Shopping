@@ -2,12 +2,14 @@ package com.dvhung.shopping.service;
 
 import com.dvhung.shopping.model.Product;
 import com.dvhung.shopping.repository.ProductRepository;
+import com.dvhung.shopping.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ProductService {
+    // Chứa logic xử lý nghiệp vụ
 
     private final ProductRepository productRepository;
 
@@ -24,7 +26,8 @@ public class ProductService {
     }
 
     public Product findById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy sản phẩm có ID: " + id));
     }
 
     public Product updateProduct(Long id, Product updated) {
