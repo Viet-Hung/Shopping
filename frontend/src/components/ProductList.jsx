@@ -1,4 +1,4 @@
-import { useEffect, userState } from "react";
+import { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../services/productService";
 
 // Hiển thị danh sách sản phẩm
@@ -30,7 +30,7 @@ const ProductList = ({ onEdit }) => {
                 {/* đoạn JSX tạo một bảng có: Đường viền mỏng, Các ô có khoảng trống 8px bên trong, Đường viền của ô được "sáp nhập" với nhau (border-collapse). */}
                 <thead>
                     <tr>
-                        <th>STT</th>
+                        <th>ID</th>
                         <th>Tên sản phẩm</th>
                         <th>Mô tả</th>
                         <th>Giá</th>

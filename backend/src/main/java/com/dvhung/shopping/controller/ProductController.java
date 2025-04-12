@@ -23,4 +23,19 @@ public class ProductController {
     public List<Product> getAllProducts() {
         return service.getAllProducts();
     }
+
+    @PostMapping
+    public Product createProduct(@RequestBody Product product) {
+        return service.saveProduct(product);
+    }
+
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        return service.updateProduct(id, updatedProduct);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        service.deleteProduct(id);
+    }
 }

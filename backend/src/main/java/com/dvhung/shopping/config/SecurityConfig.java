@@ -11,7 +11,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Tắt bảo vệ CSRF (chỉ cho dev)
+                .csrf(csrf -> csrf.disable()) // Tắt bảo vệ CSRF (chỉ cho dev)
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll() // Cho phép truy cập mọi endpoint
                 );
