@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { createProduct, updateProduct } from '../services/productService';
+import { createProduct, updateProduct } from '../services/productService'
+import { toast } from 'react-toastify';
 
 // Thêm mới sản phẩm
 const ProductForm = ({ selectedProduct, onSaveDone }) => {
@@ -34,14 +35,29 @@ const ProductForm = ({ selectedProduct, onSaveDone }) => {
     // Cập nhật giá trị của thuộc tính tương ứng trong product khi người dùng nhập liệu
     // Sử dụng destructuring để lấy name và value từ event target
 
+    // const handleSubmit = (e) => {
+    //     e.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
+    //     const action = selectedProduct ? updateProduct(product.id, product) : createProduct(product);
+    //     // Chọn hàm tạo hoặc cập nhật sản phẩm dựa trên selectedProduct
+    //     action.then(() => {
+    //         alert("Lưu thành công!");
+    //         onSaveDone(); // Gọi hàm onSaveDone để thông báo cho cha biết rằng việc lưu đã hoàn tất
+    //     });
+    // };
     const handleSubmit = (e) => {
-        e.preventDefault(); // Ngăn chặn hành vi mặc định của form (tải lại trang)
-        const action = selectedProduct ? updateProduct(product.id, product) : createProduct(product);
-        // Chọn hàm tạo hoặc cập nhật sản phẩm dựa trên selectedProduct
-        action.then(() => {
-            alert("Lưu thành công!");
-            onSaveDone(); // Gọi hàm onSaveDone để thông báo cho cha biết rằng việc lưu đã hoàn tất
-        });
+        e.preventDefault();
+        const action = selectedProduct
+            ? updateProduct(product.id, product)
+            : createProduct(product);
+
+        action
+            .then(() => {
+                toast.success('✔️ Lưu thành công!');
+                onSaveDone();
+            })
+            .catch(() => {
+                toast.error('❌ Lưu thất bại!');
+            });
     };
     // Gọi hàm tạo hoặc cập nhật sản phẩm và thông báo cho cha biết việc lưu đã hoàn tất
     // Sử dụng destructuring để lấy id và product từ selectedProduct

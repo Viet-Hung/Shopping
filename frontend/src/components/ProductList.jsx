@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../services/productService";
+import { toast } from "react-toastify";
+// Nếu có lỗi xảy ra, hiển thị thông báo lỗi
 
 // Hiển thị danh sách sản phẩm
 const ProductList = ({ onEdit }) => {
@@ -12,10 +14,20 @@ const ProductList = ({ onEdit }) => {
     };
 
     const handleDelete = (id) => {
+        // if (window.confirm("Bạn có chắc muốn xóa sản phẩm này không?")) {
+        //     deleteProduct(id)
+        //         .then(() => loadProducts())
+        //     // .catch((err) => console.error('Lỗi xóa sản phẩm:', err));
+        // }
         if (window.confirm("Bạn có chắc muốn xóa sản phẩm này không?")) {
             deleteProduct(id)
-                .then(() => loadProducts())
-            // .catch((err) => console.error('Lỗi xóa sản phẩm:', err));
+                .then(() => {
+                    toast.success('🗑️ Xóa sản phẩm thành công!');
+                    loadProducts();
+                })
+                .catch(() => {
+                    toast.error('❌ Xóa sản phẩm thất bại!');
+                });
         }
     };
 

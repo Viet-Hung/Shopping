@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProductList from "./components/ProductList";
 import ProductForm from './components/ProductForm';
+import ToastConfig from "./toast/ToastConfig";
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -32,9 +33,12 @@ function App() {
         key={reloadFlag}
         onEdit={handleEdit}
       />
-
       {/* Truyền hàm handleEdit vào ProductList */}
+
+      <ToastConfig />
+      {/* Gọi ToastConfig để hiển thị thông báo */}
     </div>
+
   );
 }
 
