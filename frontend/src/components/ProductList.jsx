@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 // Hiển thị danh sách sản phẩm
 const ProductList = ({ onEdit }) => {
     const [products, setProducts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const loadProducts = () => {
         getProducts()
@@ -38,6 +39,13 @@ const ProductList = ({ onEdit }) => {
     return (
         <div>
             <h2>📦 Danh sách sản phẩm</h2>
+            <input
+                type="text"
+                placeholder="🔍 Tìm sản phẩm theo tên..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{ marginBottom: '10px', padding: '5px', width: '100%' }}
+            />
             <table border="1" cellPadding="8" style={{ borderCollapse: 'collapse' }}>
                 {/* đoạn JSX tạo một bảng có: Đường viền mỏng, Các ô có khoảng trống 8px bên trong, Đường viền của ô được "sáp nhập" với nhau (border-collapse). */}
                 <thead>
@@ -50,17 +58,22 @@ const ProductList = ({ onEdit }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => (
-                        <tr key={product.id}>
-                            <td>{product.name}</td>
-                            <td>{product.description}</td>
-                            <td>{product.price}VND</td>
-                            <td>
-                                <button onClick={() => onEdit(product)}>Sửa</button>
-                                <button onClick={() => handleDelete(product.id)}>Xóa</button>
-                            </td>
-                        </tr>
-                    ))}
+                    {products
+                        .filter((product) =>
+                            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+                        )
+                        .map((product) => (
+                            // {products.map((product) => (
+                            <tr key={product.id}>
+                                <td>{product.name}</td>
+                                <td>{product.description}</td>
+                                <td>{product.price}VND</td>
+                                <td>
+                                    <button onClick={() => onEdit(product)}>Sửa</button>
+                                    <button onClick={() => handleDelete(product.id)}>Xóa</button>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
         </div>
