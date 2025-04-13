@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts, deleteProduct } from "../services/productService";
+import { useCart } from '../contexts/CartContext';
 import { toast } from "react-toastify";
 // Nếu có lỗi xảy ra, hiển thị thông báo lỗi
 
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 const ProductList = ({ onEdit }) => {
     const [products, setProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const { addToCart } = useCart();
 
     const loadProducts = () => {
         getProducts()
@@ -71,6 +73,7 @@ const ProductList = ({ onEdit }) => {
                                 <td>
                                     <button onClick={() => onEdit(product)}>Sửa</button>
                                     <button onClick={() => handleDelete(product.id)}>Xóa</button>
+                                    <button onClick={() => addToCart(product)}>🛒 Thêm vào giỏ</button>
                                 </td>
                             </tr>
                         ))}
